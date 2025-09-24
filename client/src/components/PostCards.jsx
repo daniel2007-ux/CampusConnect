@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {BadgeCheck, Heart} from 'lucide-react'
+import {BadgeCheck, Heart, MessageCircle, Share, Share2, ShareIcon} from 'lucide-react'
 import moment from 'moment'
 import { dummyUserData } from '../assets/assets'
 
@@ -7,10 +7,13 @@ const PostCards = ({post}) => {
 
     const hashTagged_post = post.content.replace(/(#\w+)/g, '<span class="text-blue-600">$1</span>' )
 
-
     const [Likes, setLikes] =  useState(post.likes_count)
-    
-    const current_user = dummyUserData
+
+    const current_user = dummyUserData;
+
+    const handleLike = async () => {
+        
+    }
 
   return (
     <div className='bg-white rounded-xl shadow p-4 space-y-4 w-full max-w-2xl'>
@@ -35,9 +38,17 @@ const PostCards = ({post}) => {
 
       {/* Action Btn */}
       <div className='flex items-center gap-4 text-grey-600 text-sm pt-2 border-t border-grey-300'>
-        <div>
-            <Heart className={`w-4 h-4 cursor-pointer ${Likes.includes(current_user._id) && 'text-red-500 fill-red-500'}`}/>
+        <div className='flex items-center gap-1'>
+            <Heart className={`w-4 h-4 cursor-pointer ${Likes.includes(current_user._id) && 'text-red-500 fill-red-500'}`} onClick={handleLike} />
             <span>{Likes.length}</span>
+        </div>
+        <div className='flex items-center gap-1'>
+            <MessageCircle className='w-4 h-4'/>
+            <span>{20}</span>
+        </div>
+        <div className='flex items-center gap-1'>
+            <Share2 className='w-4 h-4'/>
+            <span>{3}</span>
         </div>
       </div>
     </div>
