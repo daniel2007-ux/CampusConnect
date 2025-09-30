@@ -27,10 +27,10 @@ const PostCards = ({post}) => {
             <span>{post.user.full_name}</span>
             <BadgeCheck className='w-4 h-4 text-blue-500'/>
         </div>
-        <div className='text-grey-500 text-sm'>@{post.user.username} • {moment(post.createdAt).fromNow()}</div>
+        <div className='text-gray-500 text-sm'>@{post.user.username} • {moment(post.createdAt).fromNow()}</div>
       </div>
       {/* post content */}
-      {post.content && <div className='text-grey-800 text-sm whitespace-pre-line' dangerouslySetInnerHTML={{__html: hashTagged_post}}/>}
+      {post.content && <div className='text-gray-800 text-sm whitespace-pre-line' dangerouslySetInnerHTML={{__html: hashTagged_post}}/>}
 
       {/* post image */}
       <div className='grid grid-cols-2 gap-2'>
@@ -40,7 +40,7 @@ const PostCards = ({post}) => {
       </div>
 
       {/* Action Btn */}
-      <div className='flex items-center gap-4 text-grey-600 text-sm pt-2 border-t border-grey-300'>
+      <div className='flex items-center gap-4 text-gray-600 text-sm pt-2 border-t border-gray-300'>
         <div className='flex items-center gap-1'>
             <Heart className={`w-4 h-4 cursor-pointer ${Likes.includes(current_user._id) && 'text-red-500 fill-red-500'}`} onClick={handleLike} />
             <span>{Likes.length}</span>
