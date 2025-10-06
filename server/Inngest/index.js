@@ -9,15 +9,15 @@ export const inngest = new Inngest({ id: "CampusConnect-app" });
 //Function to get user data and store it in a database
 const sync_user_creation = inngest.createFunction(
     {id: 'sync-user-from-clerk'},
-    {event: 'clark/user.created'},
+    {event: 'clerk/user.created'},
     async ({event}) => {
         const {id, first_name, last_name, email_addresses, image_url} = event.data
-        let username = email_addresses[0].email_addresses.split('@')[0]
+        let username = email_addresses[0].email_address.split('@')[0]
 
         // check availability of username
-        const user = await User.findOne({username})
+        const existingUser = await User.findOne({username})
 
-        if (user) {
+        if (existingUser) {
             username = username + Math.floor(Math.random() * 10000)
         }
 
@@ -29,14 +29,14 @@ const sync_user_creation = inngest.createFunction(
             username
         }
 
-        await user.create(user_data)
+        await User.create(user_data)
     }
 )
 
 // Inngest function to update user data in database
 const sync_user_updation = inngest.createFunction(
     {id: 'update-user-from-clerk'},
-    {event: 'clark/user.updated'},
+    {event: 'clerk/user.updated'},
     async ({event}) => {
         const {id, first_name, last_name, email_addresses, image_url} = event.data
 
@@ -52,7 +52,7 @@ const sync_user_updation = inngest.createFunction(
 // Inngest function to delete user data in database
 const sync_user_deletion = inngest.createFunction(
     {id: 'delete-user-with-clerk'},
-    {event: 'clark/user.deleted'},
+    {event: 'clerk/user.deleted'},
     async ({event}) => {
         const {id} = event.data
 
